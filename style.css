@@ -1,5 +1,6 @@
 * {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Arial, sans-serif;
   -webkit-tap-highlight-color: transparent;
@@ -61,86 +62,155 @@ body {
 }
 
 /* Eyes */
-.eyes { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; }
+.eyes {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
 .eye {
-  width: 45px; height: 20px;
+  width: 45px;
+  height: 20px;
   background: rgba(0, 200, 255, 0.1);
   border: 2px solid #00d9ff;
   border-radius: 50px;
-  position: relative; overflow: hidden;
+  position: relative;
+  overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
 }
+
 .pupil {
-  width: 10px; height: 10px;
+  width: 10px;
+  height: 10px;
   background: #00d9ff;
   border-radius: 50%;
-  position: absolute; top: 50%; left: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 0 8px #00d9ff;
 }
+
 .lid {
-  position: absolute; width: 100%; height: 0%;
-  background: #050b12; top: 0; transition: 0.1s;
+  position: absolute;
+  width: 100%;
+  height: 0%;
+  background: #050b12;
+  top: 0;
+  transition: 0.1s;
 }
 
-h2 span { color: #00d9ff; }
+h2 span {
+  color: #00d9ff;
+}
 
-.form-group { margin-bottom: 15px; }
+.form-group {
+  margin-bottom: 15px;
+}
+
 input {
-  width: 100%; padding: 12px;
+  width: 100%;
+  padding: 12px;
   background: rgba(0,0,0,0.4);
   border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px; color: white; outline: none;
+  border-radius: 10px;
+  color: white;
+  outline: none;
 }
-input:focus { border: 1px solid #00d9ff; }
+
+input:focus {
+  border: 1px solid #00d9ff;
+}
 
 .btn-action {
-  width: 100%; padding: 12px;
+  width: 100%;
+  padding: 12px;
   background: linear-gradient(90deg, #00d9ff, #007bff);
-  border: none; border-radius: 10px;
-  color: white; font-weight: bold; cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
   box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
 }
 
-.switch-area { margin-top: 15px; font-size: 13px; color: #aaa; }
-.switch-area b { color: #00d9ff; cursor: pointer; margin-left: 5px; }
+.switch-area {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.switch-area b {
+  color: #00d9ff;
+  cursor: pointer;
+  margin-left: 5px;
+}
 
 /* Popup Center */
 .popup-overlay {
   position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.85);
   backdrop-filter: blur(10px);
-  display: none; justify-content: center; align-items: center;
+  display: none;
+  justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
+
 .popup-box {
-  width: 300px; padding: 30px;
-  background: #141923; border: 1px solid #00d9ff;
-  border-radius: 20px; text-align: center;
+  width: 300px;
+  padding: 30px;
+  background: #141923;
+  border: 1px solid #00d9ff;
+  border-radius: 20px;
+  text-align: center;
   animation: zoom 0.3s ease;
 }
-@keyframes zoom { from { transform: scale(0.7); opacity: 0; } }
+
+@keyframes zoom {
+  from { transform: scale(0.7); opacity: 0; }
+}
 
 .popup-img {
-  width: 80px; height: 80px; border-radius: 50%;
-  border: 2px solid #00d9ff; margin-bottom: 15px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #00d9ff;
+  margin-bottom: 15px;
 }
+
 .popup-ok {
-  display: block; width: 100%; padding: 12px;
-  background: #00d9ff; color: #000; font-weight: bold;
-  border-radius: 10px; margin-top: 20px; cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #00d9ff;
+  color: #000;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
 /* Animasi Shake */
-.shake { animation: shakeEffect 0.4s; }
+.shake {
+  animation: shakeEffect 0.4s;
+}
+
 @keyframes shakeEffect {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-10px); }
   75% { transform: translateX(10px); }
 }
 
-.fade { animation: fadeEffect 0.4s; }
+.fade {
+  animation: fadeEffect 0.4s;
+}
+
 @keyframes fadeEffect {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -260,6 +330,7 @@ select:focus {
   align-items: center;
   justify-content: flex-start;
   padding-top: 15px;
+  padding-bottom: 95px;
   z-index: 30;
 }
 
@@ -394,16 +465,18 @@ select:focus {
   text-shadow: 0 0 10px rgba(0,217,255,0.4);
 }
 
+/* NAVBAR FIX (BIAR MUNCUL DI HOSTING) */
 .bottom-nav {
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  max-width: 520px;
   display: flex;
   justify-content: space-around;
   padding: 12px 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.75);
   border-top: 1px solid rgba(0,217,255,0.2);
+  z-index: 9999;
 }
 
 .nav-btn {
@@ -453,4 +526,4 @@ select:focus {
   color: white;
   background: linear-gradient(90deg, #00d9ff, #007bff);
   box-shadow: 0 0 15px rgba(0,217,255,0.3);
-}
+  }
