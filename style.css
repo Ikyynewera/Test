@@ -7,15 +7,16 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #050b12;
   color: white;
-  overflow: hidden;
-  position: fixed;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
 }
 
 /* Neon Glow Background */
@@ -332,6 +333,7 @@ select:focus {
   padding-top: 15px;
   padding-bottom: 95px;
   z-index: 30;
+  overflow-y: auto;
 }
 
 .page3-top {
@@ -465,7 +467,7 @@ select:focus {
   text-shadow: 0 0 10px rgba(0,217,255,0.4);
 }
 
-/* NAVBAR FIX (BIAR MUNCUL DI HOSTING) */
+/* NAVBAR FIX */
 .bottom-nav {
   position: fixed;
   bottom: 0;
