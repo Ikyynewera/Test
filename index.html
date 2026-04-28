@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>DJAVUE DEV</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="bg-glow"></div>
+  <div class="bg-glow2"></div>
+
+  <!-- LOGIN CARD -->
+  <div class="auth-card" id="authCard">
+    <div class="eyes">
+      <div class="eye"><div class="pupil"></div><div class="lid"></div></div>
+      <div class="eye"><div class="pupil"></div><div class="lid"></div></div>
+    </div>
+
+    <h2 id="formTitle">DJAVUE <span>DEV</span></h2>
+
+    <div class="form-group">
+      <input type="text" id="username" placeholder="Username" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <input type="password" id="key" placeholder="Password">
+    </div>
+
+    <button class="btn-action" id="submitBtn">AUTHORIZE</button>
+
+    <div class="switch-area">
+      <span id="hintText">New user?</span>
+      <b id="toggleBtn">Create Identity</b>
+    </div>
+  </div>
+
+  <!-- POPUP -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+      <img src="gtt.jpg" class="popup-img" alt="icon">
+      <h3 class="popup-title"></h3>
+      <p class="popup-desc"></p>
+      <span class="popup-ok" id="popupOk">Konfirmasi</span>
+    </div>
+  </div>
+
+  <!-- HALAMAN 2 -->
+  <div class="next-page" id="nextPage">
+    <h1 class="neon-title">Ikxx</h1>
+
+    <div class="video-box">
+      <video class="main-video" autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="select-area">
+      <div class="select-group">
+        <label>Year / Date / Month</label>
+
+        <div class="triple-select">
+          <select id="yearSelect">
+            <option value="" disabled selected>Year</option>
+            <option>2026</option>
+            <option>2027</option>
+            <option>2028</option>
+            <option>2029</option>
+            <option>2030</option>
+          </select>
+
+          <select id="monthSelect">
+            <option value="" disabled selected>Month</option>
+            <option>January</option>
+            <option>February</option>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+            <option>June</option>
+            <option>July</option>
+            <option>August</option>
+            <option>September</option>
+            <option>October</option>
+            <option>November</option>
+            <option>December</option>
+          </select>
+
+          <select id="dateSelect">
+            <option value="" disabled selected>Date</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+            <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+            <option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
+            <option>21</option><option>22</option><option>23</option><option>24</option><option>25</option>
+            <option>26</option><option>27</option><option>28</option><option>29</option><option>30</option>
+            <option>31</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="select-group">
+        <label>Role</label>
+        <select id="roleSelect" class="role-select">
+          <option value="" disabled selected>Choose Role</option>
+          <option>Member</option>
+          <option>VIP</option>
+          <option>Admin</option>
+          <option>TG Kanan</option>
+          <option>Developer</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="confirm-btn" id="confirmBtn">Konfirmasi</button>
+  </div>
+
+  <!-- HALAMAN 3 -->
+  <div class="page3" id="page3">
+
+    <div class="page3-top">
+      <h2 class="brand-name">Xand-er</h2>
+      <div class="menu-dots" id="dotsBtn">⋮</div>
+    </div>
+
+    <div class="video-box">
+      <video class="main-video" autoplay muted loop playsinline>
+        <source src="videoo.mp4" type="video/mp4">
+        Browser kamu tidak support video.
+      </video>
+    </div>
+
+    <div class="role-exp-box">
+      <div class="role-line" id="roleText">Role: -</div>
+      <div class="exp-line" id="expText">Exp: -</div>
+    </div>
+
+    <div class="switch-home-tabs">
+      <span class="home-tab active" id="tabWhatsapp">WhatsApp</span>
+      <span class="home-tab" id="tabGroup">Group wa</span>
+    </div>
+
+    <!-- HOME CONTENT -->
+    <div class="home-content" id="homeContent">
+
+      <!-- WhatsApp Form -->
+      <div class="form-section" id="whatsappForm">
+        <label class="mini-label">Masukan nomer</label>
+        <input type="text" id="waNumber" class="long-input" placeholder="08*****">
+
+        <label class="mini-label">Pilihan</label>
+        <select id="waOption" class="long-select">
+          <option value="" disabled selected>Pilih...</option>
+          <option>Crash</option>
+          <option>Crash invisible</option>
+          <option>Delay</option>
+        </select>
+
+        <button class="send-btn" id="sendWaBtn">Kirim</button>
+      </div>
+
+      <!-- Group Form -->
+      <div class="form-section" id="groupForm" style="display:none;">
+        <label class="mini-label">Masukan link group</label>
+        <input type="text" id="groupLink" class="long-input" placeholder="Masukan link group...">
+
+        <label class="mini-label">Pilihan</label>
+        <select id="groupOption" class="long-select">
+          <option value="" disabled selected>Pilih...</option>
+          <option>Spam tell invis</option>
+          <option>Delay chat</option>
+          <option>Lag</option>
+        </select>
+
+        <button class="send-btn" id="sendGroupBtn">Kirim</button>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="contact-box">
+        <h3 class="contact-title">Contact</h3>
+
+        <div class="contact-links">
+          <a class="contact-btn" id="waContact" href="#" target="_blank">WhatsApp</a>
+          <a class="contact-btn" id="tgContact" href="#" target="_blank">Telegram</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TOOLS CONTENT -->
+    <div class="update-page" id="toolsContent">
+      <h2>Update sedang berlangsung</h2>
+    </div>
+
+    <!-- SENDER CONTENT -->
+    <div class="update-page" id="senderContent">
+      <h2>Update sedang berlangsung</h2>
+    </div>
+
+    <!-- SETTINGS CONTENT -->
+    <div class="update-page" id="settingsContent">
+      <h2>Update sedang berlangsung</h2>
+    </div>
+
+    <!-- NAVBAR -->
+    <div class="bottom-nav">
+      <button class="nav-btn active" id="navHome">Home</button>
+      <button class="nav-btn" id="navTools">Tools</button>
+      <button class="nav-btn" id="navSender">Sender</button>
+      <button class="nav-btn" id="navSettings">Settings</button>
+    </div>
+
+  </div>
+
+  <!-- POPUP VISUAL SEND -->
+  <div class="popup-overlay" id="sendPopup">
+    <div class="popup-box">
+      <img src="gtt.jpg" class="popup-img" alt="icon">
+      <h3 class="popup-title" id="sendTitle">Sukses</h3>
+      <p class="popup-desc" id="sendDesc">Berhasil mengirim</p>
+      <span class="popup-ok" id="sendOk">Konfirmasi</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
