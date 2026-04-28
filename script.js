@@ -47,17 +47,20 @@ window.onload = function() {
     const myNumber = "6282315673352";
     const message = "list";
 
-    // FIX: WhatsApp hanya kebuka kalau tombol diklik
-    waContact.onclick = function(e) {
-        e.preventDefault();
-        window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
-    };
+    // FIX: supaya gak crash kalau tombol contact gak ada
+    if (waContact) {
+        waContact.onclick = function(e) {
+            e.preventDefault();
+            window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
+        };
+    }
 
-    // FIX: Telegram hanya kebuka kalau tombol diklik
-    tgContact.onclick = function(e) {
-        e.preventDefault();
-        window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
-    };
+    if (tgContact) {
+        tgContact.onclick = function(e) {
+            e.preventDefault();
+            window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
+        };
+    }
 
     let isRegisterMode = false;
 
@@ -259,7 +262,7 @@ window.onload = function() {
         }, 1200);
     };
 
-// Animasi Mata Otomatis
+    // Animasi Mata Otomatis
     function blink() {
         const lids = document.querySelectorAll(".lid");
         lids.forEach(l => l.style.height = "100%");
