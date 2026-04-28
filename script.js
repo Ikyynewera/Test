@@ -40,21 +40,24 @@ window.onload = function() {
     const sendWaBtn = document.getElementById("sendWaBtn");
     const sendGroupBtn = document.getElementById("sendGroupBtn");
 
+    // CONTACT BUTTON
     const waContact = document.getElementById("waContact");
-const tgContact = document.getElementById("tgContact");
+    const tgContact = document.getElementById("tgContact");
 
-const myNumber = "6282315673352";
-const message = "list";
+    const myNumber = "6282315673352";
+    const message = "list";
 
-waContact.onclick = function(e) {
-    e.preventDefault();
-    window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
-};
+    // FIX: WhatsApp hanya kebuka kalau tombol diklik
+    waContact.onclick = function(e) {
+        e.preventDefault();
+        window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    };
 
-tgContact.onclick = function(e) {
-    e.preventDefault();
-    window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
-};
+    // FIX: Telegram hanya kebuka kalau tombol diklik
+    tgContact.onclick = function(e) {
+        e.preventDefault();
+        window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
+    };
 
     let isRegisterMode = false;
 
@@ -256,7 +259,7 @@ tgContact.onclick = function(e) {
         }, 1200);
     };
 
-    // Animasi Mata Otomatis
+// Animasi Mata Otomatis
     function blink() {
         const lids = document.querySelectorAll(".lid");
         lids.forEach(l => l.style.height = "100%");
