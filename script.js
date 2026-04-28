@@ -41,17 +41,20 @@ window.onload = function() {
     const sendGroupBtn = document.getElementById("sendGroupBtn");
 
     const waContact = document.getElementById("waContact");
-    const tgContact = document.getElementById("tgContact");
+const tgContact = document.getElementById("tgContact");
 
-    // Nomor WhatsApp kamu
-    const myNumber = "6282315673352";
-    const message = "list";
+const myNumber = "6282315673352";
+const message = "list";
 
-window.open("https://wa.me/6282315673352?text=list", "_blank");
+waContact.onclick = function(e) {
+    e.preventDefault();
+    window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
+};
 
-    tgContact.onclick = function() {
-        window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
-    };
+tgContact.onclick = function(e) {
+    e.preventDefault();
+    window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
+};
 
     let isRegisterMode = false;
 
