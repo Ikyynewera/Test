@@ -23,8 +23,14 @@
     <div class="form-group">
       <input type="text" id="username" placeholder="Username" autocomplete="off">
     </div>
+   
+    <div class="form-group">
+      <input type="email" id="email" placeholder="Email" autocomplete="off">
+    </div>
+   
     <div class="form-group">
       <input type="password" id="key" placeholder="Password">
+      <p class="error-text" id="passError"></p>
     </div>
 
     <button class="btn-action" id="submitBtn">AUTHORIZE</button>
@@ -56,8 +62,14 @@
     </div>
 
     <div class="select-area">
+
       <div class="select-group">
-        <label>Year / Date / Month</label>
+        <label>Name</label>
+        <input type="text" id="nameInput" class="long-input" placeholder="Masukan nama...">
+      </div>
+
+      <div class="select-group">
+        <label>Year / Month / Date</label>
 
         <div class="triple-select">
           <select id="yearSelect">
@@ -105,8 +117,8 @@
           <option>Member</option>
           <option>VIP</option>
           <option>Admin</option>
-          <option>TG Kanan</option>
           <option>Developer</option>
+          <option>Owner</option>
         </select>
       </div>
     </div>
@@ -117,96 +129,132 @@
   <!-- HALAMAN 3 -->
   <div class="page3" id="page3">
 
-    <div class="page3-top">
-      <h2 class="brand-name">Xand-er</h2>
-      <div class="menu-dots" id="dotsBtn">⋮</div>
+    <div class="header-top">
+      <div>
+        <h2 class="hello-text" id="helloText">Halo, -</h2>
+        <div class="mini-status">
+          <span class="status-dot"></span>
+          <span id="roleMini">ROLE</span>
+          <span class="divider">•</span>
+          <span id="expMini">Exp: -</span>
+        </div>
+      </div>
     </div>
 
-    <div class="video-box">
+    <div class="profile-card">
+      <div class="profile-icon">👤</div>
+      <div class="profile-info">
+        <div class="profile-name" id="profileName">-</div>
+        <div class="profile-role" id="profileRole">Role: -</div>
+        <div class="profile-exp" id="profileExp">Exp: -</div>
+      </div>
+      <div class="live-tag">LIVE</div>
+    </div>
+
+    <div class="banner-box">
       <video class="main-video" autoplay muted loop playsinline>
         <source src="videoo.mp4" type="video/mp4">
-        Browser kamu tidak support video.
       </video>
     </div>
 
-    <div class="role-exp-box">
-      <div class="role-line" id="roleText">Role: -</div>
-      <div class="exp-line" id="expText">Exp: -</div>
-    </div>
+    <!-- NAV CONTENT -->
+    <div class="content-area">
 
-    <div class="switch-home-tabs">
-      <span class="home-tab active" id="tabWhatsapp">WhatsApp</span>
-      <span class="home-tab" id="tabGroup">Group wa</span>
-    </div>
-
-    <!-- HOME CONTENT -->
-    <div class="home-content" id="homeContent">
-
-      <!-- WhatsApp Form -->
-      <div class="form-section" id="whatsappForm">
-        <label class="mini-label">Masukan nomer</label>
-        <input type="text" id="waNumber" class="long-input" placeholder="08*****">
-
-        <label class="mini-label">Pilihan</label>
-        <select id="waOption" class="long-select">
-          <option value="" disabled selected>Pilih...</option>
-          <option>Crash</option>
-          <option>Crash invisible</option>
-          <option>Delay</option>
-        </select>
-
-        <button class="send-btn" id="sendWaBtn">Kirim</button>
+      <!-- HOME -->
+      <div class="section-page" id="homeContent">
+        <h2 class="section-title">Home</h2>
+        <p class="section-desc">Halaman home masih kosong.</p>
       </div>
 
-      <!-- Group Form -->
-      <div class="form-section" id="groupForm" style="display:none;">
-        <label class="mini-label">Masukan link group</label>
-        <input type="text" id="groupLink" class="long-input" placeholder="Masukan link group...">
+      <!-- WHATSAPP -->
+      <div class="section-page" id="whatsappContent">
 
-        <label class="mini-label">Pilihan</label>
-        <select id="groupOption" class="long-select">
-          <option value="" disabled selected>Pilih...</option>
-          <option>Spam tell invis</option>
-          <option>Delay chat</option>
-          <option>Lag</option>
-        </select>
-
-        <button class="send-btn" id="sendGroupBtn">Kirim</button>
-      </div>
-
-      <!-- CONTACT -->
-      <div class="contact-box">
-        <h3 class="contact-title">Contact</h3>
-
-        <div class="contact-links">
-          <a class="contact-btn" id="waContact" href="#" target="_blank">WhatsApp</a>
-          <a class="contact-btn" id="tgContact" href="#" target="_blank">Telegram</a>
+        <div class="bug-tabs">
+          <button class="bug-tab active" id="tabBugNomor">Bug Nomor</button>
+          <button class="bug-tab" id="tabBugGroup">Bug Group</button>
         </div>
+
+        <!-- BUG NOMOR -->
+        <div id="bugNomorBox" class="bug-box">
+          <label class="mini-label-red">Nomor Target</label>
+          <input type="text" id="waNumber" class="long-input-red" placeholder="08*****">
+
+          <label class="mini-label-red">Pilihan</label>
+          <select id="waOption" class="long-select-red">
+            <option value="" disabled selected>Pilih...</option>
+            <option>CRASH CLICK</option>
+            <option>BLANK (LAGI DICARI)</option>
+            <option>CRASH UI (LAGI DI CARI)</option>
+            <option>DELAY INVISIBLE</option>
+            <option>FC ANDRO INVIS</option>
+            <option>CRASH IOS</option>
+          </select>
+
+          <button class="send-btn-red" id="sendWaBtn">Kirim</button>
+        </div>
+
+        <!-- BUG GROUP -->
+        <div id="bugGroupBox" class="bug-box" style="display:none;">
+          <label class="mini-label-red">Link Group</label>
+          <input type="text" id="groupLink" class="long-input-red" placeholder="Masukan link group...">
+
+          <label class="mini-label-red">Pilihan</label>
+          <select id="groupOption" class="long-select-red">
+            <option value="" disabled selected>Pilih...</option>
+            <option>SPAM INVISIBLE</option>
+            <option>DELAY CHAT</option>
+            <option>LAG GROUP</option>
+          </select>
+
+          <button class="send-btn-red" id="sendGroupBtn">Kirim</button>
+        </div>
+
       </div>
 
-    </div>
+      <!-- TOOLS -->
+      <div class="section-page" id="toolsContent">
+        <h2 class="section-title">Tools</h2>
+        <p class="section-desc">Update sedang berlangsung...</p>
+      </div>
 
-    <!-- TOOLS CONTENT -->
-    <div class="update-page" id="toolsContent">
-      <h2>Update sedang berlangsung</h2>
-    </div>
+      <!-- SENDER -->
+      <div class="section-page" id="senderContent">
+        <h2 class="section-title">Sender</h2>
+        <p class="section-desc">Update sedang berlangsung...</p>
+      </div>
 
-    <!-- SENDER CONTENT -->
-    <div class="update-page" id="senderContent">
-      <h2>Update sedang berlangsung</h2>
-    </div>
+      <!-- SETTINGS -->
+      <div class="section-page" id="settingsContent">
+        <h2 class="section-title">Settings</h2>
 
-    <!-- SETTINGS CONTENT -->
-    <div class="update-page" id="settingsContent">
-      <h2>Update sedang berlangsung</h2>
+        <button class="setting-btn" id="openContactBtn">Contact</button>
+      </div>
+
     </div>
 
     <!-- NAVBAR -->
     <div class="bottom-nav">
       <button class="nav-btn active" id="navHome">Home</button>
+      <button class="nav-btn" id="navWhatsapp">WhatsApp</button>
       <button class="nav-btn" id="navTools">Tools</button>
       <button class="nav-btn" id="navSender">Sender</button>
       <button class="nav-btn" id="navSettings">Settings</button>
+    </div>
+
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div class="contact-page" id="contactPage">
+
+    <div class="contact-header">
+      <button class="back-btn" id="backHomeBtn">Back</button>
+      <h2 class="contact-head-title">Contact</h2>
+    </div>
+
+    <div class="contact-box-classic">
+      <h3>Hubungi Saya</h3>
+      <a href="#" class="contact-link" id="waContact2">WhatsApp</a>
+      <a href="#" class="contact-link" id="tgContact2">Telegram</a>
     </div>
 
   </div>
@@ -221,6 +269,31 @@
     </div>
   </div>
 
+
+  <!-- FIREBASE INIT (CDN) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDKv4BGaY5OGIi0NR8x-mS51yaRJiqe_E4",
+      authDomain: "x-ander.firebaseapp.com",
+      projectId: "x-ander",
+      storageBucket: "x-ander.firebasestorage.app",
+      messagingSenderId: "954808386898",
+      appId: "1:954808386898:web:6ef0051e6303cb5d39a68b",
+      measurementId: "G-YH5FJB7B72"
+    };
+
+    const app = initializeApp(firebaseConfig);
+
+    window.auth = getAuth(app);
+    window.db = getFirestore(app);
+
+    console.log("Firebase berhasil diaktifkan!");
+  </script>
+
   <script src="script.js"></script>
 </body>
-</html>
+  </html>
