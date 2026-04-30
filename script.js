@@ -24,21 +24,24 @@ window.onload = function () {
     const nextPage = document.getElementById("nextPage");
     const confirmBtn = document.getElementById("confirmBtn");
 
+    const nameInput = document.getElementById("nameInput");
     const yearSelect = document.getElementById("yearSelect");
     const monthSelect = document.getElementById("monthSelect");
     const dateSelect = document.getElementById("dateSelect");
     const roleSelect = document.getElementById("roleSelect");
 
-    const nameSelect = document.getElementById("nameSelect"); // optional kalau kamu udah bikin
-
     // =========================
     // HALAMAN 3
     // =========================
     const page3 = document.getElementById("page3");
-    const roleText = document.getElementById("roleText");
-    const expText = document.getElementById("expText");
-    const nameText = document.getElementById("nameText");     // optional
-    const statusText = document.getElementById("statusText"); // optional
+
+    const helloText = document.getElementById("helloText");
+    const roleMini = document.getElementById("roleMini");
+    const expMini = document.getElementById("expMini");
+
+    const profileName = document.getElementById("profileName");
+    const profileRole = document.getElementById("profileRole");
+    const profileExp = document.getElementById("profileExp");
 
     // Navbar page3
     const navHome = document.getElementById("navHome");
@@ -54,23 +57,30 @@ window.onload = function () {
     const senderContent = document.getElementById("senderContent");
     const settingsContent = document.getElementById("settingsContent");
 
-    // WhatsApp tab (di dalam menu WhatsApp)
-    const tabWhatsapp = document.getElementById("tabWhatsapp");
-    const tabGroup = document.getElementById("tabGroup");
-    const whatsappForm = document.getElementById("whatsappForm");
-    const groupForm = document.getElementById("groupForm");
+    // =========================
+    // WHATSAPP MENU (BUG NOMOR / BUG GROUP)
+    // =========================
+    const tabBugNomor = document.getElementById("tabBugNomor");
+    const tabBugGroup = document.getElementById("tabBugGroup");
+
+    const bugNomorBox = document.getElementById("bugNomorBox");
+    const bugGroupBox = document.getElementById("bugGroupBox");
 
     // Tombol kirim (visual)
     const sendWaBtn = document.getElementById("sendWaBtn");
     const sendGroupBtn = document.getElementById("sendGroupBtn");
 
-    // Popup visual send
+    // =========================
+    // POPUP VISUAL SEND
+    // =========================
     const sendPopup = document.getElementById("sendPopup");
     const sendTitle = document.getElementById("sendTitle");
     const sendDesc = document.getElementById("sendDesc");
     const sendOk = document.getElementById("sendOk");
 
-    // Contact page (dibuka dari settings)
+    // =========================
+    // CONTACT PAGE
+    // =========================
     const contactPage = document.getElementById("contactPage");
     const openContactBtn = document.getElementById("openContactBtn");
     const backHomeBtn = document.getElementById("backHomeBtn");
@@ -87,7 +97,7 @@ window.onload = function () {
     let lastPopupAction = "";
 
     // =========================
-    // FUNCTION POPUP
+    // FUNCTION POPUP LOGIN
     // =========================
     function showPopup(title, desc) {
         document.querySelector(".popup-title").innerHTML = title;
@@ -98,9 +108,6 @@ window.onload = function () {
     function showPassError(msg) {
         if (passError) {
             passError.innerText = msg;
-            passError.style.color = "red";
-            passError.style.marginTop = "8px";
-            passError.style.fontSize = "13px";
         }
     }
 
@@ -138,6 +145,7 @@ window.onload = function () {
     // =========================
     toggleBtn.onclick = function () {
         isRegisterMode = !isRegisterMode;
+
         authCard.classList.add("fade");
         setTimeout(() => authCard.classList.remove("fade"), 400);
 
@@ -159,7 +167,7 @@ window.onload = function () {
     };
 
     // =========================
-    // REGISTER / LOGIN (DATABASE SIMULASI LOCAL)
+    // DATABASE SIMULASI LOCAL
     // =========================
     function saveAccount(username, email, password) {
         const data = {
@@ -272,32 +280,31 @@ window.onload = function () {
     };
 
     // =========================
+    // POPUP VISUAL SEND
+    // =========================
+    function showSendPopup(title, desc) {
+        sendTitle.innerText = title;
+        sendDesc.innerText = desc;
+        sendPopup.style.display = "flex";
+    }
+
+    sendOk.onclick = function () {
+        sendPopup.style.display = "none";
+    };
+
+    // =========================
     // HALAMAN 2 CONFIRM -> PAGE 3
     // =========================
     confirmBtn.onclick = function () {
+        const name = nameInput.value.trim();
         const year = yearSelect.value;
         const month = monthSelect.value;
         const date = dateSelect.value;
         const role = roleSelect.value;
 
-        if (year === "" || month === "" || date === "" || role === "") {
+        if (name === "" || year === "" || month === "" || date === "" || role === "") {
             showSendPopup("Gagal", "Harap isi semua pilihan dulu!");
             return;
-        }
-
-        roleText.innerText = "Role: " + role;
-        expText.innerText = "Exp: Aktif sampai " + date + " " + month + " " + year;
-
-        // Status otomatis sesuai role
-        if (statusText) {
-            if (role === "Admin") statusText.innerText = "Status: Full Access";
-            else if (role === "VIP") statusText.innerText = "Status: Premium";
-            else statusText.innerText = "Status: Normal";
-        }
-
-        // Name optional
-        if (nameText && nameSelect) {
-            nameText.innerText = "Name: " + nameSelect.value;
         }
 
         confirmBtn.innerText = "WAIT...";
@@ -307,32 +314,40 @@ window.onload = function () {
             confirmBtn.disabled = false;
             confirmBtn.innerText = "Konfirmasi";
 
+            // Isi data halaman 3
+            helloText.innerText = "Halo, " + name;
+
+            roleMini.innerText = role;
+            expMini.innerText = "Exp: " + date + " " + month + " " + year;
+
+            profileName.innerText = name;
+            profileRole.innerText = "Role: " + role;
+            profileExp.innerText = "Exp: " + date + " " + month + " " + year;
+
+            // pindah halaman
             nextPage.style.display = "none";
             page3.style.display = "flex";
 
             showSection("home");
-        }, 1000);
+        }, 900);
     };
 
     // =========================
     // SHOW SECTION PAGE3
     // =========================
     function showSection(section) {
-        // hide all
-        if (homeContent) homeContent.style.display = "none";
-        if (whatsappContent) whatsappContent.style.display = "none";
-        if (toolsContent) toolsContent.style.display = "none";
-        if (senderContent) senderContent.style.display = "none";
-        if (settingsContent) settingsContent.style.display = "none";
+        homeContent.style.display = "none";
+        whatsappContent.style.display = "none";
+        toolsContent.style.display = "none";
+        senderContent.style.display = "none";
+        settingsContent.style.display = "none";
 
-        // remove active navbar
         navHome.classList.remove("active");
         navWhatsapp.classList.remove("active");
         navTools.classList.remove("active");
         navSender.classList.remove("active");
         navSettings.classList.remove("active");
 
-        // show selected
         if (section === "home") {
             homeContent.style.display = "block";
             navHome.classList.add("active");
@@ -367,49 +382,38 @@ window.onload = function () {
     navSettings.onclick = () => showSection("settings");
 
     // =========================
-    // TAB WHATSAPP / GROUP WA (HANYA DI MENU WHATSAPP)
+    // TAB BUG NOMOR / BUG GROUP
     // =========================
-    tabWhatsapp.onclick = function () {
-        tabWhatsapp.classList.add("active");
-        tabGroup.classList.remove("active");
-        whatsappForm.style.display = "block";
-        groupForm.style.display = "none";
+    tabBugNomor.onclick = function () {
+        tabBugNomor.classList.add("active");
+        tabBugGroup.classList.remove("active");
+
+        bugNomorBox.style.display = "block";
+        bugGroupBox.style.display = "none";
     };
 
-    tabGroup.onclick = function () {
-        tabGroup.classList.add("active");
-        tabWhatsapp.classList.remove("active");
-        whatsappForm.style.display = "none";
-        groupForm.style.display = "block";
-    };
+    tabBugGroup.onclick = function () {
+        tabBugGroup.classList.add("active");
+        tabBugNomor.classList.remove("active");
 
-    // =========================
-    // SEND POPUP
-    // =========================
-    function showSendPopup(title, desc) {
-        sendTitle.innerText = title;
-        sendDesc.innerText = desc;
-        sendPopup.style.display = "flex";
-    }
-
-    sendOk.onclick = function () {
-        sendPopup.style.display = "none";
+        bugNomorBox.style.display = "none";
+        bugGroupBox.style.display = "block";
     };
 
     // =========================
-    // SEND BUTTON VISUAL
+    // SEND BUTTON VISUAL (BOONGAN)
     // =========================
     sendWaBtn.onclick = function () {
         const num = document.getElementById("waNumber").value.trim();
         const opt = document.getElementById("waOption").value;
 
-        if (num.length < 12) {
-            showSendPopup("Gagal", "Nomor wajib minimal 12 digit!");
+        if (num.length < 10) {
+            showSendPopup("Gagal", "Nomor target wajib diisi!");
             return;
         }
 
         if (opt === "") {
-            showSendPopup("Gagal", "Harap pilih pilihan dulu!");
+            showSendPopup("Gagal", "Harap pilih bug dulu!");
             return;
         }
 
@@ -419,7 +423,7 @@ window.onload = function () {
         setTimeout(() => {
             sendWaBtn.disabled = false;
             sendWaBtn.innerText = "Kirim";
-            showSendPopup("Sukses", "Berhasil mengirim (visual / boongan)");
+            showSendPopup("Sukses", "Berhasil mengirim bug ke nomor (visual / boongan)");
         }, 1200);
     };
 
@@ -433,7 +437,7 @@ window.onload = function () {
         }
 
         if (opt === "") {
-            showSendPopup("Gagal", "Harap pilih pilihan dulu!");
+            showSendPopup("Gagal", "Harap pilih bug dulu!");
             return;
         }
 
@@ -443,42 +447,36 @@ window.onload = function () {
         setTimeout(() => {
             sendGroupBtn.disabled = false;
             sendGroupBtn.innerText = "Kirim";
-            showSendPopup("Sukses", "Berhasil mengirim (visual / boongan)");
+            showSendPopup("Sukses", "Berhasil mengirim bug ke group (visual / boongan)");
         }, 1200);
     };
 
     // =========================
     // SETTINGS -> CONTACT PAGE
     // =========================
-    if (openContactBtn) {
-        openContactBtn.onclick = function () {
-            page3.style.display = "none";
-            contactPage.style.display = "flex";
-        };
-    }
+    openContactBtn.onclick = function () {
+        page3.style.display = "none";
+        contactPage.style.display = "flex";
+    };
 
-    if (backHomeBtn) {
-        backHomeBtn.onclick = function () {
-            contactPage.style.display = "none";
-            page3.style.display = "flex";
-            showSection("settings");
-        };
-    }
+    backHomeBtn.onclick = function () {
+        contactPage.style.display = "none";
+        page3.style.display = "flex";
+        showSection("settings");
+    };
 
-    // Contact links
-    if (waContact2) {
-        waContact2.onclick = function (e) {
-            e.preventDefault();
-            window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
-        };
-    }
+    // =========================
+    // CONTACT LINK
+    // =========================
+    waContact2.onclick = function (e) {
+        e.preventDefault();
+        window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    };
 
-    if (tgContact2) {
-        tgContact2.onclick = function (e) {
-            e.preventDefault();
-            window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
-        };
-    }
+    tgContact2.onclick = function (e) {
+        e.preventDefault();
+        window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
+    };
 
     // =========================
     // BLINK ANIMATION
