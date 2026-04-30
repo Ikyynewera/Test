@@ -1,7 +1,7 @@
 window.onload = function () {
 
     // =========================
-    // HALAMAN 1 (LOGIN)
+    // HALAMAN 1 (LOGIN / REGISTER)
     // =========================
     const authCard = document.getElementById("authCard");
     const formTitle = document.getElementById("formTitle");
@@ -24,21 +24,24 @@ window.onload = function () {
     const nextPage = document.getElementById("nextPage");
     const confirmBtn = document.getElementById("confirmBtn");
 
-    const nameInput = document.getElementById("nameInput");
     const yearSelect = document.getElementById("yearSelect");
     const monthSelect = document.getElementById("monthSelect");
     const dateSelect = document.getElementById("dateSelect");
     const roleSelect = document.getElementById("roleSelect");
+
+    const nameInput = document.getElementById("nameInput"); // dari HTML kamu
 
     // =========================
     // HALAMAN 3
     // =========================
     const page3 = document.getElementById("page3");
 
+    // Header mini status
     const helloText = document.getElementById("helloText");
     const roleMini = document.getElementById("roleMini");
     const expMini = document.getElementById("expMini");
 
+    // Profile card
     const profileName = document.getElementById("profileName");
     const profileRole = document.getElementById("profileRole");
     const profileExp = document.getElementById("profileExp");
@@ -58,7 +61,7 @@ window.onload = function () {
     const settingsContent = document.getElementById("settingsContent");
 
     // =========================
-    // WHATSAPP MENU (BUG NOMOR / BUG GROUP)
+    // TAB BUG NOMOR / BUG GROUP (MENU WHATSAPP)
     // =========================
     const tabBugNomor = document.getElementById("tabBugNomor");
     const tabBugGroup = document.getElementById("tabBugGroup");
@@ -70,9 +73,7 @@ window.onload = function () {
     const sendWaBtn = document.getElementById("sendWaBtn");
     const sendGroupBtn = document.getElementById("sendGroupBtn");
 
-    // =========================
-    // POPUP VISUAL SEND
-    // =========================
+    // Popup visual send
     const sendPopup = document.getElementById("sendPopup");
     const sendTitle = document.getElementById("sendTitle");
     const sendDesc = document.getElementById("sendDesc");
@@ -88,16 +89,17 @@ window.onload = function () {
     const waContact2 = document.getElementById("waContact2");
     const tgContact2 = document.getElementById("tgContact2");
 
-    // Data contact
     const myNumber = "6282315673352";
     const message = "list";
 
-    // Mode register/login
+    // =========================
+    // MODE LOGIN / REGISTER
+    // =========================
     let isRegisterMode = false;
     let lastPopupAction = "";
 
     // =========================
-    // FUNCTION POPUP LOGIN
+    // POPUP FUNCTION
     // =========================
     function showPopup(title, desc) {
         document.querySelector(".popup-title").innerHTML = title;
@@ -116,28 +118,76 @@ window.onload = function () {
     }
 
     // =========================
-    // VALIDASI PASSWORD
+    // VALIDASI PASSWORD SUPER KETAT
     // =========================
-    function isEasyPassword(password) {
-        const easyPasswords = [
+    function isStrongPassword(password, username, email) {
+        if (password.length < 8) return false;
+
+        // harus ada huruf besar, huruf kecil, angka
+        const hasUpper = /[A-Z]/.test(password);
+        const hasLower = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+
+        // harus ada simbol
+        const hasSymbol = /[^A-Za-z0-9]/.test(password);
+
+        if (!hasUpper || !hasLower || !hasNumber || !hasSymbol) return false;
+
+        // jangan sama dengan username/email
+        if (username && password.toLowerCase().includes(username.toLowerCase())) return false;
+        if (email && password.toLowerCase().includes(email.toLowerCase().split("@")[0])) return false;
+
+        // blacklist password umum
+        const blacklist = [
             "12345678", "123456789", "1234567890",
             "11111111", "00000000", "87654321",
-            "password", "qwerty123", "asdfghjkl",
-            "iloveyou", "admin123", "adminadmin"
+            "password", "qwerty", "qwerty123",
+            "admin123", "adminadmin", "iloveyou",
+            "sayang", "anjay", "kontol", "bismillah",
+            "asdfghjkl", "zxcvbnm"
         ];
 
-        if (easyPasswords.includes(password.toLowerCase())) return true;
+        if (blacklist.includes(password.toLowerCase())) return false;
 
-        // angka semua
-        if (/^[0-9]+$/.test(password)) return true;
+        // kalau cuma angka semua
+        if (/^[0-9]+$/.test(password)) return false;
 
-        // urutan naik
-        if (password.includes("12345678")) return true;
+        // pola urutan naik
+        if (password.includes("1234") || password.includes("2345") || password.includes("3456") || password.includes("4567")) {
+            return false;
+        }
 
-        // urutan turun
-        if (password.includes("87654321")) return true;
+        // pola urutan turun
+        if (password.includes("9876") || password.includes("8765") || password.includes("7654") || password.includes("6543")) {
+            return false;
+        }
 
-        return false;
+        // karakter sama berulang (aaaaaaa / 111111)
+        if (/^(.)\1+$/.test(password)) return false;
+
+        return true;
+    }
+
+    function passwordRulesText() {
+        return "Password harus minimal 8 karakter + ada Huruf BESAR, huruf kecil, angka, dan simbol. Tidak boleh gampang ditebak.";
+    }
+
+    // =========================
+    // DATABASE LOCALSTORAGE (SIMULASI)
+    // =========================
+    function saveAccount(username, email, password) {
+        const data = {
+            username: username,
+            email: email,
+            password: password
+        };
+        localStorage.setItem("userAccount", JSON.stringify(data));
+    }
+
+    function getAccount() {
+        const data = localStorage.getItem("userAccount");
+        if (!data) return null;
+        return JSON.parse(data);
     }
 
     // =========================
@@ -145,7 +195,6 @@ window.onload = function () {
     // =========================
     toggleBtn.onclick = function () {
         isRegisterMode = !isRegisterMode;
-
         authCard.classList.add("fade");
         setTimeout(() => authCard.classList.remove("fade"), 400);
 
@@ -167,24 +216,6 @@ window.onload = function () {
     };
 
     // =========================
-    // DATABASE SIMULASI LOCAL
-    // =========================
-    function saveAccount(username, email, password) {
-        const data = {
-            username: username,
-            email: email,
-            password: password
-        };
-        localStorage.setItem("userAccount", JSON.stringify(data));
-    }
-
-    function getAccount() {
-        const data = localStorage.getItem("userAccount");
-        if (!data) return null;
-        return JSON.parse(data);
-    }
-
-    // =========================
     // SUBMIT LOGIN / REGISTER
     // =========================
     submitBtn.onclick = function () {
@@ -199,67 +230,69 @@ window.onload = function () {
             return;
         }
 
-        if (!emailValue.includes("@")) {
+        if (!emailValue.includes("@") || emailValue.length < 6) {
             showPassError("Email tidak valid!");
             return;
         }
 
-        if (passValue.length < 8) {
-            showPassError("Password harus minimal 8 karakter!");
-            return;
-        }
+        // REGISTER MODE
+        if (isRegisterMode) {
 
-        if (isEasyPassword(passValue)) {
-            showPassError("Password terlalu mudah! Buat yang lebih sulit.");
-            return;
-        }
+            if (!isStrongPassword(passValue, userValue, emailValue)) {
+                showPassError(passwordRulesText());
+                return;
+            }
 
-        submitBtn.innerText = "WAIT...";
-        submitBtn.disabled = true;
+            submitBtn.innerText = "WAIT...";
+            submitBtn.disabled = true;
 
-        setTimeout(() => {
-            submitBtn.disabled = false;
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "CREATE";
 
-            // REGISTER
-            if (isRegisterMode) {
                 saveAccount(userValue, emailValue, passValue);
 
-                submitBtn.innerText = "CREATE";
-                showPopup("Akun <span>Dibuat</span>", "Akun berhasil dibuat. Silahkan login dulu.");
+                showPopup("Akun <span>Dibuat</span>", "Akun berhasil dibuat. Sekarang login dulu.");
                 lastPopupAction = "register";
+            }, 1200);
+
+            return;
+        }
+
+        // LOGIN MODE
+        else {
+            const acc = getAccount();
+
+            if (!acc) {
+                showPassError("Belum ada akun. Silahkan Create Identity dulu.");
+                return;
             }
 
-            // LOGIN
-            else {
-                const acc = getAccount();
+            if (emailValue !== acc.email || passValue !== acc.password) {
+                showPassError("Email atau Password salah!");
+                return;
+            }
 
-                if (!acc) {
-                    submitBtn.innerText = "AUTHORIZE";
-                    showPassError("Belum ada akun. Silahkan Create Identity dulu.");
-                    return;
-                }
+            submitBtn.innerText = "WAIT...";
+            submitBtn.disabled = true;
 
-                if (emailValue !== acc.email || passValue !== acc.password) {
-                    submitBtn.innerText = "AUTHORIZE";
-                    showPassError("Email atau Password salah!");
-                    return;
-                }
-
+            setTimeout(() => {
+                submitBtn.disabled = false;
                 submitBtn.innerText = "AUTHORIZE";
+
                 showPopup("Login <span>Berhasil</span>", "Selamat datang kembali.");
                 lastPopupAction = "login";
-            }
-
-        }, 1200);
+            }, 1000);
+        }
     };
 
     // =========================
-    // POPUP OK
+    // POPUP OK BUTTON
     // =========================
     popupOk.onclick = function () {
         popup.style.display = "none";
 
-        // Kalau REGISTER: jangan pindah halaman, suruh login dulu
+        // Kalau REGISTER: jangan pindah halaman, balik ke login
         if (lastPopupAction === "register") {
             isRegisterMode = false;
 
@@ -269,10 +302,11 @@ window.onload = function () {
             toggleBtn.innerText = "Create Identity";
             passInput.placeholder = "Password";
 
+            clearPassError();
             return;
         }
 
-        // Kalau LOGIN sukses: masuk halaman 2
+        // Kalau LOGIN sukses: pindah ke halaman 2
         if (lastPopupAction === "login") {
             authCard.style.display = "none";
             nextPage.style.display = "flex";
@@ -280,30 +314,28 @@ window.onload = function () {
     };
 
     // =========================
-    // POPUP VISUAL SEND
-    // =========================
-    function showSendPopup(title, desc) {
-        sendTitle.innerText = title;
-        sendDesc.innerText = desc;
-        sendPopup.style.display = "flex";
-    }
-
-    sendOk.onclick = function () {
-        sendPopup.style.display = "none";
-    };
-
-    // =========================
     // HALAMAN 2 CONFIRM -> PAGE 3
     // =========================
     confirmBtn.onclick = function () {
-        const name = nameInput.value.trim();
+
         const year = yearSelect.value;
         const month = monthSelect.value;
         const date = dateSelect.value;
         const role = roleSelect.value;
+        const nameValue = nameInput.value.trim();
 
-        if (name === "" || year === "" || month === "" || date === "" || role === "") {
+        // VALIDASI: kalau belum lengkap jangan disable tombol
+        if (nameValue === "") {
+            showSendPopup("Gagal", "Nama wajib diisi!");
+            confirmBtn.disabled = false;
+            confirmBtn.innerText = "Konfirmasi";
+            return;
+        }
+
+        if (year === "" || month === "" || date === "" || role === "") {
             showSendPopup("Gagal", "Harap isi semua pilihan dulu!");
+            confirmBtn.disabled = false;
+            confirmBtn.innerText = "Konfirmasi";
             return;
         }
 
@@ -311,43 +343,48 @@ window.onload = function () {
         confirmBtn.disabled = true;
 
         setTimeout(() => {
+
+            // SET DATA KE PAGE 3
+            if (helloText) helloText.innerText = "Halo, " + nameValue;
+
+            if (roleMini) roleMini.innerText = role.toUpperCase();
+            if (expMini) expMini.innerText = "Exp: " + date + " " + month + " " + year;
+
+            if (profileName) profileName.innerText = nameValue;
+            if (profileRole) profileRole.innerText = "Role: " + role;
+            if (profileExp) profileExp.innerText = "Exp: " + date + " " + month + " " + year;
+
             confirmBtn.disabled = false;
             confirmBtn.innerText = "Konfirmasi";
 
-            // Isi data halaman 3
-            helloText.innerText = "Halo, " + name;
-
-            roleMini.innerText = role;
-            expMini.innerText = "Exp: " + date + " " + month + " " + year;
-
-            profileName.innerText = name;
-            profileRole.innerText = "Role: " + role;
-            profileExp.innerText = "Exp: " + date + " " + month + " " + year;
-
-            // pindah halaman
             nextPage.style.display = "none";
             page3.style.display = "flex";
 
             showSection("home");
-        }, 900);
+
+        }, 1000);
     };
 
     // =========================
-    // SHOW SECTION PAGE3
+    // NAVBAR SECTION PAGE3
     // =========================
     function showSection(section) {
-        homeContent.style.display = "none";
-        whatsappContent.style.display = "none";
-        toolsContent.style.display = "none";
-        senderContent.style.display = "none";
-        settingsContent.style.display = "none";
 
-        navHome.classList.remove("active");
-        navWhatsapp.classList.remove("active");
-        navTools.classList.remove("active");
-        navSender.classList.remove("active");
-        navSettings.classList.remove("active");
+        // hide all section
+        if (homeContent) homeContent.style.display = "none";
+        if (whatsappContent) whatsappContent.style.display = "none";
+        if (toolsContent) toolsContent.style.display = "none";
+        if (senderContent) senderContent.style.display = "none";
+        if (settingsContent) settingsContent.style.display = "none";
 
+        // remove active navbar
+        if (navHome) navHome.classList.remove("active");
+        if (navWhatsapp) navWhatsapp.classList.remove("active");
+        if (navTools) navTools.classList.remove("active");
+        if (navSender) navSender.classList.remove("active");
+        if (navSettings) navSettings.classList.remove("active");
+
+        // show selected
         if (section === "home") {
             homeContent.style.display = "block";
             navHome.classList.add("active");
@@ -375,111 +412,138 @@ window.onload = function () {
     }
 
     // Navbar click
-    navHome.onclick = () => showSection("home");
-    navWhatsapp.onclick = () => showSection("whatsapp");
-    navTools.onclick = () => showSection("tools");
-    navSender.onclick = () => showSection("sender");
-    navSettings.onclick = () => showSection("settings");
+    if (navHome) navHome.onclick = () => showSection("home");
+    if (navWhatsapp) navWhatsapp.onclick = () => showSection("whatsapp");
+    if (navTools) navTools.onclick = () => showSection("tools");
+    if (navSender) navSender.onclick = () => showSection("sender");
+    if (navSettings) navSettings.onclick = () => showSection("settings");
 
     // =========================
     // TAB BUG NOMOR / BUG GROUP
     // =========================
-    tabBugNomor.onclick = function () {
-        tabBugNomor.classList.add("active");
-        tabBugGroup.classList.remove("active");
+    if (tabBugNomor && tabBugGroup) {
+        tabBugNomor.onclick = function () {
+            tabBugNomor.classList.add("active");
+            tabBugGroup.classList.remove("active");
 
-        bugNomorBox.style.display = "block";
-        bugGroupBox.style.display = "none";
-    };
+            bugNomorBox.style.display = "block";
+            bugGroupBox.style.display = "none";
+        };
 
-    tabBugGroup.onclick = function () {
-        tabBugGroup.classList.add("active");
-        tabBugNomor.classList.remove("active");
+        tabBugGroup.onclick = function () {
+            tabBugGroup.classList.add("active");
+            tabBugNomor.classList.remove("active");
 
-        bugNomorBox.style.display = "none";
-        bugGroupBox.style.display = "block";
-    };
+            bugNomorBox.style.display = "none";
+            bugGroupBox.style.display = "block";
+        };
+    }
 
     // =========================
-    // SEND BUTTON VISUAL (BOONGAN)
+    // SEND POPUP FUNCTION
     // =========================
-    sendWaBtn.onclick = function () {
-        const num = document.getElementById("waNumber").value.trim();
-        const opt = document.getElementById("waOption").value;
+    function showSendPopup(title, desc) {
+        sendTitle.innerText = title;
+        sendDesc.innerText = desc;
+        sendPopup.style.display = "flex";
+    }
 
-        if (num.length < 10) {
-            showSendPopup("Gagal", "Nomor target wajib diisi!");
-            return;
-        }
+    if (sendOk) {
+        sendOk.onclick = function () {
+            sendPopup.style.display = "none";
+        };
+    }
 
-        if (opt === "") {
-            showSendPopup("Gagal", "Harap pilih bug dulu!");
-            return;
-        }
+    // =========================
+    // SEND BUTTON (VISUAL DOANG)
+    // =========================
+    if (sendWaBtn) {
+        sendWaBtn.onclick = function () {
+            const num = document.getElementById("waNumber").value.trim();
+            const opt = document.getElementById("waOption").value;
 
-        sendWaBtn.innerText = "WAIT...";
-        sendWaBtn.disabled = true;
+            if (num.length < 10) {
+                showSendPopup("Gagal", "Nomor minimal 10 digit!");
+                return;
+            }
 
-        setTimeout(() => {
-            sendWaBtn.disabled = false;
-            sendWaBtn.innerText = "Kirim";
-            showSendPopup("Sukses", "Berhasil mengirim bug ke nomor (visual / boongan)");
-        }, 1200);
-    };
+            if (opt === "") {
+                showSendPopup("Gagal", "Harap pilih pilihan dulu!");
+                return;
+            }
 
-    sendGroupBtn.onclick = function () {
-        const link = document.getElementById("groupLink").value.trim();
-        const opt = document.getElementById("groupOption").value;
+            sendWaBtn.innerText = "WAIT...";
+            sendWaBtn.disabled = true;
 
-        if (link === "") {
-            showSendPopup("Gagal", "Link group wajib diisi!");
-            return;
-        }
+            setTimeout(() => {
+                sendWaBtn.disabled = false;
+                sendWaBtn.innerText = "Kirim";
+                showSendPopup("Sukses", "Berhasil mengirim (visual / boongan)");
+            }, 1200);
+        };
+    }
 
-        if (opt === "") {
-            showSendPopup("Gagal", "Harap pilih bug dulu!");
-            return;
-        }
+    if (sendGroupBtn) {
+        sendGroupBtn.onclick = function () {
+            const link = document.getElementById("groupLink").value.trim();
+            const opt = document.getElementById("groupOption").value;
 
-        sendGroupBtn.innerText = "WAIT...";
-        sendGroupBtn.disabled = true;
+            if (link === "") {
+                showSendPopup("Gagal", "Link group wajib diisi!");
+                return;
+            }
 
-        setTimeout(() => {
-            sendGroupBtn.disabled = false;
-            sendGroupBtn.innerText = "Kirim";
-            showSendPopup("Sukses", "Berhasil mengirim bug ke group (visual / boongan)");
-        }, 1200);
-    };
+            if (opt === "") {
+                showSendPopup("Gagal", "Harap pilih pilihan dulu!");
+                return;
+            }
+
+            sendGroupBtn.innerText = "WAIT...";
+            sendGroupBtn.disabled = true;
+
+            setTimeout(() => {
+                sendGroupBtn.disabled = false;
+                sendGroupBtn.innerText = "Kirim";
+                showSendPopup("Sukses", "Berhasil mengirim (visual / boongan)");
+            }, 1200);
+        };
+    }
 
     // =========================
     // SETTINGS -> CONTACT PAGE
     // =========================
-    openContactBtn.onclick = function () {
-        page3.style.display = "none";
-        contactPage.style.display = "flex";
-    };
+    if (openContactBtn) {
+        openContactBtn.onclick = function () {
+            page3.style.display = "none";
+            contactPage.style.display = "flex";
+        };
+    }
 
-    backHomeBtn.onclick = function () {
-        contactPage.style.display = "none";
-        page3.style.display = "flex";
-        showSection("settings");
-    };
+    if (backHomeBtn) {
+        backHomeBtn.onclick = function () {
+            contactPage.style.display = "none";
+            page3.style.display = "flex";
+            showSection("settings");
+        };
+    }
+
+    // Contact links
+    if (waContact2) {
+        waContact2.onclick = function (e) {
+            e.preventDefault();
+            window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
+        };
+    }
+
+    if (tgContact2) {
+        tgContact2.onclick = function (e) {
+            e.preventDefault();
+            window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
+        };
+    }
 
     // =========================
-    // CONTACT LINK
-    // =========================
-    waContact2.onclick = function (e) {
-        e.preventDefault();
-        window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, "_blank");
-    };
-
-    tgContact2.onclick = function (e) {
-        e.preventDefault();
-        window.open(`https://t.me/share/url?url=&text=${encodeURIComponent(message)}`, "_blank");
-    };
-
-    // =========================
-    // BLINK ANIMATION
+    // ANIMASI MATA BLINK
     // =========================
     function blink() {
         const lids = document.querySelectorAll(".lid");
